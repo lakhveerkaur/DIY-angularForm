@@ -3,43 +3,45 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
   <form [formGroup]="myForm" (ngSubmit)="submit()">
   <h4>Form</h4>
   <hr>
   <div class="form-group row">
+    <div class="col-md-6 col-sm-6">
   <label [attr.for]="url">Url</label>
   <input type="text" class="form-control"
          [attr.id]="url" formControlName="url">
   </div>
+</div>
   <fieldset formArrayName="items">
-    <h6>Items</h6>
+    <h4>Items</h4>
     <div *ngIf="myForm.get('items').hasError('minSum')">
       You must buy a total sum of at least {{ myForm.get('items').getError('minSum') }}.
     </div>
     <div class="form-group row"
          *ngFor="let item of myForm.get('items').controls; let i=index"
          [formGroup]="item">
-      <div class="col-sm-6">
-        <label [attr.for]="'name'+i">Name</label>
+      <div class="col-md-6 col-sm-6">
+        <label >Name</label>
         <input type="text" class="form-control"
-               [attr.id]="'name'+i" formControlName="name">
+                formControlName="name">
       </div>
-      <div class="col-sm-5">
-        <label [attr.for]="'quantity'+i">Quantity</label>
+      <div class="col-md-5 col-sm-5">
+        <label >Quantity</label>
         <input type="number" class="form-control"
-               [attr.id]="'quantity'+i" formControlName="quantity">
+               formControlName="quantity">
       </div>
-      <div class="col-sm-1 py-1">
-        <button type="button" class="btn"
+      <div class="col-md-1 col-sm-1 ">
+        <button type="button" class="btn btn-space"
                 (click)="myForm.get('items').removeAt(i)">-</button>
       </div>
     </div>
   </fieldset>
   <div class="form-group row">
-    <div class="col-sm-2 col-sm-offset-4">
-      <button type="button" class="btn btn-info"
-              (click)="myForm.get('items').push(buildItem(''))">Add another item</button>
+    <div class="col-md-1 col-sm-1">
+      <button type="button" class="btn btn-info "
+              (click)="myForm.get('items').push(buildItem(''))">Add item</button>
     </div>
   </div>
   <hr>
@@ -48,8 +50,8 @@
            value="Submit" [disabled]="myForm?.invalid">
   </div>
 </form>
-<h6 class="mt-3">FormGroup Model (<code>myForm.value</code>)</h6>
-<div><pre><code>{{ myForm?.value | json }}</code></pre></div>
+<router-outlet></router-outlet>
+
 </div>
 </body>
 </html>

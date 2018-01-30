@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl,
   FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-formlist',
@@ -10,7 +11,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl,
 })
 export class FormlistComponent implements OnInit {
   myForm: FormGroup;
-  constructor(private fb: FormBuilder)
+  constructor(private fb: FormBuilder,private router:Router)
   { }
 
   ngOnInit() {
@@ -30,5 +31,7 @@ export class FormlistComponent implements OnInit {
 
 submit() {
     console.log("Reactive Form submitted: ", this.myForm.value);
+    this.router.navigateByUrl('/formsubmit');
+    this.myForm.reset();
   }
 }
